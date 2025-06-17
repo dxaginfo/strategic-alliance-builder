@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategic Alliance Builder</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-diagram-3"></i> Strategic Alliance Builder
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" data-page="dashboard">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-page="profile">My Brand</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-page="discovery">Partner Discovery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-page="workspace">Workspace</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-page="library">Resource Library</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-page="settings">
+                            <i class="bi bi-gear"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Welcome Modal for First-time Users -->
+    <div class="modal fade" id="welcomeModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Welcome to Strategic Alliance Builder</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <img src="assets/images/welcome.svg" class="img-fluid" alt="Welcome">
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Transform Your Partnerships</h4>
+                            <p>Strategic Alliance Builder helps you find and develop meaningful partnerships that go beyond traditional sponsorships.</p>
+                            <p>Get started by creating your brand profile, then discover potential partners that align with your strategic goals.</p>
+                            <p>All your data is stored locally on your device for privacy.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="getStartedBtn">Get Started</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="container mt-4 mb-5">
+        <!-- Dashboard Page -->
+        <div class="page-content" id="dashboard-page">
+            <div class="row mb-4">
+                <div class="col-md-8">
+                    <h2>Dashboard</h2>
+                    <p class="text-muted">Welcome to your Strategic Alliance Builder dashboard.</p>
+                </div>
+                <div class="col-md-4 text-end">
+                    <button class="btn btn-outline-primary" id="export-data-btn">
+                        <i class="bi bi-download"></i> Export Data
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dashboard Cards -->
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">My Brand Profile</h5>
+                            <p class="card-text">Your brand profile is <span id="profile-status" class="badge bg-warning">Incomplete</span></p>
+                            <p>Complete your profile to improve partner matching.</p>
+                            <a href="#" class="btn btn-primary" data-page="profile">Edit Profile</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Partner Matches</h5>
+                            <div class="display-4 text-center mb-2">0</div>
+                            <p class="card-text">Potential strategic partners based on your profile.</p>
+                            <a href="#" class="btn btn-primary" data-page="discovery">Find Partners</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Active Collaborations</h5>
+                            <div class="display-4 text-center mb-2">0</div>
+                            <p class="card-text">Ongoing partnership projects in your workspace.</p>
+                            <a href="#" class="btn btn-primary" data-page="workspace">View Workspace</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activities -->
+            <div class="card mb-4">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Recent Activities</h5>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted text-center" id="no-activities">No recent activities. Start by completing your brand profile.</p>
+                    <ul class="list-group list-group-flush" id="activity-list" style="display: none;">
+                        <!-- Activity items will be added here -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Getting Started -->
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Getting Started</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <div class="bg-primary text-white rounded-circle p-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                        <i class="bi bi-1-circle-fill"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5>Create Your Profile</h5>
+                                    <p>Define your brand's values, audience, and partnership goals.</p>
+                                    <a href="#" class="btn btn-sm btn-outline-primary" data-page="profile">Start Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <div class="bg-primary text-white rounded-circle p-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                        <i class="bi bi-2-circle-fill"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5>Discover Partners</h5>
+                                    <p>Find potential partners that align with your strategic goals.</p>
+                                    <a href="#" class="btn btn-sm btn-outline-primary" data-page="discovery">Find Matches</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <div class="bg-primary text-white rounded-circle p-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                        <i class="bi bi-3-circle-fill"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h5>Create Collaborations</h5>
+                                    <p>Set up workspaces for managing partnership activities.</p>
+                                    <a href="#" class="btn btn-sm btn-outline-primary" data-page="workspace">Set Up</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Brand Profile Page -->
+        <div class="page-content" id="profile-page" style="display: none;">
+            <div class="row mb-4">
+                <div class="col">
+                    <h2>My Brand Profile</h2>
+                    <p class="text-muted">Create a detailed profile of your brand to improve partner matching.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <form id="brand-profile-form">
+                        <!-- Basic Information -->
+                        <h4 class="mb-3">Basic Information</h4>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="brand-name" class="form-label">Brand Name</label>
+                                <input type="text" class="form-control" id="brand-name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="industry" class="form-label">Industry</label>
+                                <select class="form-select" id="industry" required>
+                                    <option value="">Select Industry</option>
+                                    <option value="sports">Sports & Recreation</option>
+                                    <option value="entertainment">Entertainment & Media</option>
+                                    <option value="technology">Technology</option>
+                                    <option value="retail">Retail & Consumer Goods</option>
+                                    <option value="financial">Financial Services</option>
+                                    <option value="healthcare">Healthcare</option>
+                                    <option value="education">Education</option>
+                                    <option value="food">Food & Beverage</option>
+                                    <option value="automotive">Automotive</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="company-size" class="form-label">Company Size</label>
+                                <select class="form-select" id="company-size" required>
+                                    <option value="">Select Size</option>
+                                    <option value="startup">Startup (1-10 employees)</option>
+                                    <option value="small">Small (11-50 employees)</option>
+                                    <option value="medium">Medium (51-250 employees)</option>
+                                    <option value="large">Large (251-1000 employees)</option>
+                                    <option value="enterprise">Enterprise (1000+ employees)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="geographic-focus" class="form-label">Geographic Focus</label>
+                                <select class="form-select" id="geographic-focus" required>
+                                    <option value="">Select Focus</option>
+                                    <option value="local">Local</option>
+                                    <option value="regional">Regional</option>
+                                    <option value="national">National</option>
+                                    <option value="international">International</option>
+                                    <option value="global">Global</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="brand-description" class="form-label">Brand Description</label>
+                            <textarea class="form-control" id="brand-description" rows="3" required></textarea>
+                            <div class="form-text">Provide a brief overview of your brand and what makes it unique.</div>
+                        </div>
+
+                        <!-- Brand Values & Identity -->
+                        <h4 class="mb-3 mt-4">Brand Values & Identity</h4>
+                        <div class="mb-3">
+                            <label class="form-label">Core Values (Select up to 5)</label>
+                            <div class="row">
+                                <div class="col-md-3 col-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="innovation" id="value-innovation">
+                                        <label class="form-check-label" for="value-innovation">Innovation</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="quality" id="value-quality">
+                                        <label class="form-check-label" for="value-quality">Quality</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="sustainability" id="value-sustainability">
+                                        <label class="form-check-label" for="value-sustainability">Sustainability</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="diversity" id="value-diversity">
+                                        <label class="form-check-label" for="value-diversity">Diversity & Inclusion</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="community" id="value-community">
+                                        <label class="form-check-label" for="value-community">Community</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="customer" id="value-customer">
+                                        <label class="form-check-label" for="value-customer">Customer Focus</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="integrity" id="value-integrity">
+                                        <label class="form-check-label" for="value-integrity">Integrity</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="excellence" id="value-excellence">
+                                        <label class="form-check-label" for="value-excellence">Excellence</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="authenticity" id="value-authenticity">
+                                        <label class="form-check-label" for="value-authenticity">Authenticity</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="teamwork" id="value-teamwork">
+                                        <label class="form-check-label" for="value-teamwork">Teamwork</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="creativity" id="value-creativity">
+                                        <label class="form-check-label" for="value-creativity">Creativity</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="social" id="value-social">
+                                        <label class="form-check-label" for="value-social">Social Responsibility</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Target Audience -->
+                        <h4 class="mb-3 mt-4">Target Audience</h4>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="audience-age" class="form-label">Primary Age Range</label>
+                                <select class="form-select" id="audience-age" required>
+                                    <option value="">Select Age Range</option>
+                                    <option value="under18">Under 18</option>
+                                    <option value="18-24">18-24</option>
+                                    <option value="25-34">25-34</option>
+                                    <option value="35-44">35-44</option>
+                                    <option value="45-54">45-54</option>
+                                    <option value="55plus">55+</option>
+                                    <option value="all">All Ages</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="audience-income" class="form-label">Income Level</label>
+                                <select class="form-select" id="audience-income">
+                                    <option value="">Select Income Level</option>
+                                    <option value="budget">Budget-conscious</option>
+                                    <option value="middle">Middle income</option>
+                                    <option value="affluent">Affluent</option>
+                                    <option value="luxury">Luxury</option>
+                                    <option value="all">All income levels</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="audience-interests" class="form-label">Audience Interests</label>
+                            <input type="text" class="form-control" id="audience-interests" placeholder="e.g., Sports, Technology, Fashion">
+                            <div class="form-text">Enter interests separated by commas.</div>
+                        </div>
+
+                        <!-- Partnership Preferences -->
+                        <h4 class="mb-3 mt-4">Partnership Preferences</h4>
+                        <div class="mb-3">
+                            <label class="form-label">Partnership Objectives (Select all that apply)</label>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="audience" id="obj-audience">
+                                        <label class="form-check-label" for="obj-audience">Audience Expansion</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="product" id="obj-product">
+                                        <label class="form-check-label" for="obj-product">Product Development</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="content" id="obj-content">
+                                        <label class="form-check-label" for="obj-content">Content Creation</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="credibility" id="obj-credibility">
+                                        <label class="form-check-label" for="obj-credibility">Brand Credibility</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="sales" id="obj-sales">
+                                        <label class="form-check-label" for="obj-sales">Sales Growth</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="innovation" id="obj-innovation">
+                                        <label class="form-check-label" for="obj-innovation">Innovation</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="partnership-duration" class="form-label">Preferred Partnership Duration</label>
+                                <select class="form-select" id="partnership-duration">
+                                    <option value="">Select Duration</option>
+                                    <option value="short">Short-term (less than 6 months)</option>
+                                    <option value="medium">Medium-term (6-12 months)</option>
+                                    <option value="long">Long-term (1-3 years)</option>
+                                    <option value="strategic">Strategic (3+ years)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="investment-level" class="form-label">Investment Level</label>
+                                <select class="form-select" id="investment-level">
+                                    <option value="">Select Level</option>
+                                    <option value="minimal">Minimal (under $10,000)</option>
+                                    <option value="moderate">Moderate ($10,000-$50,000)</option>
+                                    <option value="substantial">Substantial ($50,000-$250,000)</option>
+                                    <option value="major">Major ($250,000+)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="partnership-experience" class="form-label">Previous Partnership Experience</label>
+                            <textarea class="form-control" id="partnership-experience" rows="3"></textarea>
+                            <div class="form-text">Briefly describe any notable partnerships your brand has engaged in previously.</div>
+                        </div>
+
+                        <!-- Form Submission -->
+                        <div class="text-end mt-4">
+                            <button type="reset" class="btn btn-outline-secondary me-2">Reset</button>
+                            <button type="submit" class="btn btn-primary">Save Profile</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Partner Discovery Page -->
+        <div class="page-content" id="discovery-page" style="display: none;">
+            <div class="row mb-4">
+                <div class="col">
+                    <h2>Partner Discovery</h2>
+                    <p class="text-muted">Find potential strategic partners that align with your brand.</p>
+                </div>
+            </div>
+
+            <!-- Partner Search Filters -->
+            <div class="card mb-4">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Search Filters</h5>
+                </div>
+                <div class="card-body">
+                    <form id="partner-search-form">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="filter-industry" class="form-label">Industry</label>
+                                <select class="form-select" id="filter-industry">
+                                    <option value="">All Industries</option>
+                                    <option value="sports">Sports & Recreation</option>
+                                    <option value="entertainment">Entertainment & Media</option>
+                                    <option value="technology">Technology</option>
+                                    <option value="retail">Retail & Consumer Goods</option>
+                                    <option value="financial">Financial Services</option>
+                                    <option value="healthcare">Healthcare</option>
+                                    <option value="education">Education</option>
+                                    <option value="food">Food & Beverage</option>
+                                    <option value="automotive">Automotive</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="filter-size" class="form-label">Company Size</label>
+                                <select class="form-select" id="filter-size">
+                                    <option value="">Any Size</option>
+                                    <option value="startup">Startup (1-10 employees)</option>
+                                    <option value="small">Small (11-50 employees)</option>
+                                    <option value="medium">Medium (51-250 employees)</option>
+                                    <option value="large">Large (251-1000 employees)</option>
+                                    <option value="enterprise">Enterprise (1000+ employees)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="filter-geography" class="form-label">Geographic Focus</label>
+                                <select class="form-select" id="filter-geography">
+                                    <option value="">Any Location</option>
+                                    <option value="local">Local</option>
+                                    <option value="regional">Regional</option>
+                                    <option value="national">National</option>
+                                    <option value="international">International</option>
+                                    <option value="global">Global</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Core Values Alignment</label>
+                                <select class="form-select" id="filter-values">
+                                    <option value="">Any Values</option>
+                                    <option value="innovation">Innovation</option>
+                                    <option value="quality">Quality</option>
+                                    <option value="sustainability">Sustainability</option>
+                                    <option value="diversity">Diversity & Inclusion</option>
+                                    <option value="community">Community</option>
+                                    <option value="customer">Customer Focus</option>
+                                    <option value="integrity">Integrity</option>
+                                    <option value="excellence">Excellence</option>
+                                    <option value="authenticity">Authenticity</option>
+                                    <option value="teamwork">Teamwork</option>
+                                    <option value="creativity">Creativity</option>
+                                    <option value="social">Social Responsibility</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="filter-objective" class="form-label">Partnership Objective</label>
+                                <select class="form-select" id="filter-objective">
+                                    <option value="">Any Objective</option>
+                                    <option value="audience">Audience Expansion</option>
+                                    <option value="product">Product Development</option>
+                                    <option value="content">Content Creation</option>
+                                    <option value="credibility">Brand Credibility</option>
+                                    <option value="sales">Sales Growth</option>
+                                    <option value="innovation">Innovation</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <button type="reset" class="btn btn-outline-secondary me-2">Clear Filters</button>
+                            <button type="submit" class="btn btn-primary" id="find-partners-btn">Find Partners</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Partner Results -->
+            <div class="row" id="partner-results">
+                <div class="col-12 text-center py-5" id="no-partners-message">
+                    <p class="text-muted">Use the search filters above to find potential partners.</p>
+                </div>
+                <!-- Partner cards will be added here -->
+            </div>
+        </div>
+
+        <!-- Collaboration Workspace Page -->
+        <div class="page-content" id="workspace-page" style="display: none;">
+            <div class="row mb-4">
+                <div class="col-md-8">
+                    <h2>Collaboration Workspace</h2>
+                    <p class="text-muted">Manage your strategic partnerships and collaborations.</p>
+                </div>
+                <div class="col-md-4 text-end">
+                    <button class="btn btn-primary" id="create-workspace-btn">
+                        <i class="bi bi-plus-circle"></i> New Collaboration
+                    </button>
+                </div>
+            </div>
+
+            <!-- Collaboration List -->
+            <div class="row" id="collaboration-list">
+                <div class="col-12 text-center py-5" id="no-collaborations-message">
+                    <div class="mb-4">
+                        <i class="bi bi-people fs-1 text-muted"></i>
+                    </div>
+                    <h4>No Collaborations Yet</h4>
+                    <p class="text-muted">Create your first collaboration to get started.</p>
+                    <button class="btn btn-primary" id="create-workspace-btn-empty">
+                        <i class="bi bi-plus-circle"></i> Create Collaboration
+                    </button>
+                </div>
+                <!-- Collaboration cards will be added here -->
+            </div>
+        </div>
+
+        <!-- Resource Library Page -->
+        <div class="page-content" id="library-page" style="display: none;">
+            <div class="row mb-4">
+                <div class="col">
+                    <h2>Resource Library</h2>
+                    <p class="text-muted">Explore partnership success stories and resources.</p>
+                </div>
+            </div>
+
+            <!-- Resource Filters -->
+            <div class="card mb-4">
+                <div class="card-header bg-light">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h5 class="mb-0">Filters</h5>
+                        </div>
+                        <div class="col-auto">
+                            <select class="form-select form-select-sm" id="resource-type-filter">
+                                <option value="all">All Resources</option>
+                                <option value="case">Case Studies</option>
+                                <option value="template">Templates</option>
+                                <option value="guide">Guides</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Industry</label>
+                            <select class="form-select" id="resource-industry-filter">
+                                <option value="all">All Industries</option>
+                                <option value="sports">Sports & Recreation</option>
+                                <option value="entertainment">Entertainment & Media</option>
+                                <option value="technology">Technology</option>
+                                <option value="retail">Retail & Consumer Goods</option>
+                                <option value="financial">Financial Services</option>
+                                <option value="healthcare">Healthcare</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Partnership Type</label>
+                            <select class="form-select" id="resource-partnership-filter">
+                                <option value="all">All Types</option>
+                                <option value="co-branding">Co-Branding</option>
+                                <option value="product">Product Development</option>
+                                <option value="content">Content Creation</option>
+                                <option value="distribution">Distribution</option>
+                                <option value="technology">Technology Integration</option>
+                                <option value="cause">Cause Marketing</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Sort By</label>
+                            <select class="form-select" id="resource-sort">
+                                <option value="newest">Newest First</option>
+                                <option value="relevance">Relevance</option>
+                                <option value="popularity">Popularity</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resource Cards -->
+            <div class="row" id="resource-list">
+                <!-- Resources will be added here -->
+            </div>
+        </div>
+
+        <!-- Settings Page -->
+        <div class="page-content" id="settings-page" style="display: none;">
+            <div class="row mb-4">
+                <div class="col">
+                    <h2>Settings</h2>
+                    <p class="text-muted">Manage your application preferences and data.</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <!-- Settings Navigation -->
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action active" data-settings="data">
+                            Data Management
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action" data-settings="appearance">
+                            Appearance
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action" data-settings="metrics">
+                            Custom Metrics
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action" data-settings="about">
+                            About & Help
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <!-- Data Management Section -->
+                    <div class="settings-section" id="data-settings">
+                        <div class="card">
+                            <div class="card-header bg-light">
+                                <h5 class="mb-0">Data Management</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-4">
+                                    <h6>Export Data</h6>
+                                    <p>Export all your data to a JSON file for backup or transfer.</p>
+                                    <button class="btn btn-primary" id="settings-export-btn">
+                                        <i class="bi bi-download"></i> Export Data
+                                    </button>
+                                </div>
+                                <hr>
+                                <div class="mb-4">
+                                    <h6>Import Data</h6>
+                                    <p>Import previously exported data.</p>
+                                    <div class="input-group">
+                                        <input type="file" class="form-control" id="import-file" accept=".json">
+                                        <button class="btn btn-primary" id="settings-import-btn">
+                                            <i class="bi bi-upload"></i> Import
+                                        </button>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="mb-4">
+                                    <h6>Clear Data</h6>
+                                    <p class="text-danger">Warning: This will permanently delete all your data and reset the application.</p>
+                                    <button class="btn btn-outline-danger" id="clear-data-btn">
+                                        <i class="bi bi-trash"></i> Clear All Data
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Appearance Settings -->
+                    <div class="settings-section" id="appearance-settings" style="display: none;">
+                        <div class="card">
+                            <div class="card-header bg-light">
+                                <h5 class="mb-0">Appearance</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="form-label">Color Theme</label>
+                                    <select class="form-select" id="color-theme">
+                                        <option value="default">Default (Blue)</option>
+                                        <option value="green">Green</option>
+                                        <option value="purple">Purple</option>
+                                        <option value="dark">Dark</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Font Size</label>
+                                    <select class="form-select" id="font-size">
+                                        <option value="small">Small</option>
+                                        <option value="medium" selected>Medium</option>
+                                        <option value="large">Large</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="compact-view">
+                                        <label class="form-check-label" for="compact-view">Compact View</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Custom Metrics Settings -->
+                    <div class="settings-section" id="metrics-settings" style="display: none;">
+                        <div class="card">
+                            <div class="card-header bg-light">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Custom Metrics</h5>
+                                    <button class="btn btn-sm btn-primary" id="add-metric-btn">
+                                        <i class="bi bi-plus"></i> Add Metric
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <p>Create custom metrics to track in your partnership ROI calculations.</p>
+                                <div id="custom-metrics-list">
+                                    <p class="text-muted text-center" id="no-metrics-message">No custom metrics created yet.</p>
+                                    <!-- Custom metrics will be added here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- About & Help Section -->
+                    <div class="settings-section" id="about-settings" style="display: none;">
+                        <div class="card">
+                            <div class="card-header bg-light">
+                                <h5 class="mb-0">About & Help</h5>
+                            </div>
+                            <div class="card-body">
+                                <h6>Strategic Alliance Builder</h6>
+                                <p>Version 1.0.0</p>
+                                <p>A tool for building and managing strategic brand partnerships.</p>
+                                <hr>
+                                <h6>Documentation</h6>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <a href="https://github.com/dxaginfo/strategic-alliance-builder/blob/main/docs/user-guide.md" target="_blank">
+                                            <i class="bi bi-file-text"></i> User Guide
+                                        </a>
+                                    </li>
+                                    <li class="mb-2">
+                                        <a href="https://github.com/dxaginfo/strategic-alliance-builder" target="_blank">
+                                            <i class="bi bi-github"></i> GitHub Repository
+                                        </a>
+                                    </li>
+                                </ul>
+                                <hr>
+                                <h6>Help & Support</h6>
+                                <p>For help or to report issues, please visit the GitHub repository.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Workspace Modal -->
+    <div class="modal fade" id="createWorkspaceModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Create New Collaboration</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="create-workspace-form">
+                        <div class="mb-3">
+                            <label for="workspace-name" class="form-label">Collaboration Name</label>
+                            <input type="text" class="form-control" id="workspace-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="partner-name" class="form-label">Partner Name</label>
+                            <input type="text" class="form-control" id="partner-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="collaboration-type" class="form-label">Collaboration Type</label>
+                            <select class="form-select" id="collaboration-type" required>
+                                <option value="">Select Type</option>
+                                <option value="co-branding">Co-Branding</option>
+                                <option value="product">Product Development</option>
+                                <option value="content">Content Creation</option>
+                                <option value="distribution">Distribution</option>
+                                <option value="technology">Technology Integration</option>
+                                <option value="cause">Cause Marketing</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="collaboration-description" class="form-label">Description</label>
+                            <textarea class="form-control" id="collaboration-description" rows="3" required></textarea>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="start-date" class="form-label">Start Date</label>
+                                <input type="date" class="form-control" id="start-date" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="end-date" class="form-label">End Date</label>
+                                <input type="date" class="form-control" id="end-date">
+                                <div class="form-text">Leave blank for ongoing collaborations.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Primary Objectives (Select all that apply)</label>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="audience" id="collab-obj-audience">
+                                        <label class="form-check-label" for="collab-obj-audience">Audience Expansion</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="product" id="collab-obj-product">
+                                        <label class="form-check-label" for="collab-obj-product">Product Development</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="content" id="collab-obj-content">
+                                        <label class="form-check-label" for="collab-obj-content">Content Creation</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="credibility" id="collab-obj-credibility">
+                                        <label class="form-check-label" for="collab-obj-credibility">Brand Credibility</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="sales" id="collab-obj-sales">
+                                        <label class="form-check-label" for="collab-obj-sales">Sales Growth</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="innovation" id="collab-obj-innovation">
+                                        <label class="form-check-label" for="collab-obj-innovation">Innovation</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="save-workspace-btn">Create Collaboration</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Clear Data Confirmation Modal -->
+    <div class="modal fade" id="clearDataModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title">Confirm Data Deletion</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Warning:</strong> You are about to permanently delete all your data. This action cannot be undone.</p>
+                    <p>Please type <strong>DELETE</strong> to confirm:</p>
+                    <input type="text" class="form-control" id="delete-confirmation">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirm-clear-data-btn" disabled>Delete All Data</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Custom Metric Modal -->
+    <div class="modal fade" id="addMetricModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Add Custom Metric</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="add-metric-form">
+                        <div class="mb-3">
+                            <label for="metric-name" class="form-label">Metric Name</label>
+                            <input type="text" class="form-control" id="metric-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="metric-description" class="form-label">Description</label>
+                            <textarea class="form-control" id="metric-description" rows="2" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="metric-type" class="form-label">Measurement Type</label>
+                            <select class="form-select" id="metric-type" required>
+                                <option value="">Select Type</option>
+                                <option value="numeric">Numeric (e.g., 1, 2, 3)</option>
+                                <option value="percentage">Percentage (0-100%)</option>
+                                <option value="currency">Currency ($)</option>
+                                <option value="scale">Scale (1-5)</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="metric-frequency" class="form-label">Measurement Frequency</label>
+                            <select class="form-select" id="metric-frequency" required>
+                                <option value="">Select Frequency</option>
+                                <option value="once">One-time</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                                <option value="quarterly">Quarterly</option>
+                                <option value="annually">Annually</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="save-metric-btn">Add Metric</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.0.0/dist/chart.umd.min.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/matching.js"></script>
+    <script src="js/roi.js"></script>
+    <script src="js/project.js"></script>
+    <script src="js/library.js"></script>
+</body>
+</html>
