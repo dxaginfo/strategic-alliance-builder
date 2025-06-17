@@ -1,0 +1,356 @@
+/* Strategic Alliance Builder - Custom Styles */
+
+/* Global Styles */
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #0dcaf0;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --border-radius: 0.375rem;
+    --transition-speed: 0.3s;
+}
+
+body {
+    background-color: #f5f7fa;
+    color: #495057;
+}
+
+/* Helper Classes */
+.border-dashed {
+    border: 1px dashed #dee2e6;
+}
+
+.bg-light-hover:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+/* Card Enhancements */
+.card {
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.card:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    background-color: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+/* Partner Match Cards */
+.partner-card {
+    cursor: pointer;
+}
+
+.partner-card:hover {
+    transform: translateY(-5px);
+}
+
+.match-score {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+}
+
+.match-excellent {
+    background-color: var(--success-color);
+}
+
+.match-good {
+    background-color: #28a745;
+}
+
+.match-moderate {
+    background-color: #fd7e14;
+}
+
+.match-low {
+    background-color: #dc3545;
+}
+
+/* Collaboration Cards */
+.collaboration-card {
+    border-left: 4px solid var(--primary-color);
+}
+
+.collaboration-type-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 0 var(--border-radius) 0 var(--border-radius);
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/* Resource Cards */
+.resource-card {
+    transition: transform var(--transition-speed);
+}
+
+.resource-card:hover {
+    transform: translateY(-5px);
+}
+
+.resource-icon {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+.resource-type-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border-radius: var(--border-radius);
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/* Form Elements */
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Progress Bars */
+.progress {
+    height: 0.5rem;
+    border-radius: var(--border-radius);
+}
+
+/* Custom Metrics */
+.metric-card {
+    position: relative;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: var(--border-radius);
+    background-color: var(--light-color);
+    border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.metric-actions {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+}
+
+/* ROI Calculator */
+.roi-result {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.roi-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--success-color);
+}
+
+/* Animation Effects */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Page Transitions */
+.page-content {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .match-score {
+        width: 40px;
+        height: 40px;
+        font-size: 0.875rem;
+    }
+}
+
+/* Color Themes */
+body.theme-green {
+    --primary-color: #28a745;
+}
+
+body.theme-purple {
+    --primary-color: #6f42c1;
+}
+
+body.theme-dark {
+    --primary-color: #343a40;
+}
+
+/* Font Sizes */
+body.font-small {
+    font-size: 0.875rem;
+}
+
+body.font-large {
+    font-size: 1.125rem;
+}
+
+/* Compact View */
+body.compact-view .card {
+    margin-bottom: 0.5rem;
+}
+
+body.compact-view .card-body {
+    padding: 0.75rem;
+}
+
+/* Settings Page */
+.settings-section {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Workspace Elements */
+.milestone-item {
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 1rem;
+}
+
+.milestone-item::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0.5rem;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+}
+
+.milestone-item::after {
+    content: '';
+    position: absolute;
+    left: 0.9rem;
+    top: 1.5rem;
+    width: 0.2rem;
+    height: calc(100% - 1rem);
+    background-color: #dee2e6;
+}
+
+.milestone-item:last-child::after {
+    display: none;
+}
+
+.task-item {
+    padding: 0.75rem;
+    border-radius: var(--border-radius);
+    background-color: var(--light-color);
+    margin-bottom: 0.5rem;
+    transition: background-color var(--transition-speed);
+}
+
+.task-item:hover {
+    background-color: #e9ecef;
+}
+
+.task-complete {
+    text-decoration: line-through;
+    color: var(--secondary-color);
+}
+
+/* Welcome Modal */
+.modal-header.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+/* Success Stories */
+.story-quote {
+    font-style: italic;
+    border-left: 4px solid var(--primary-color);
+    padding-left: 1rem;
+    margin: 1rem 0;
+}
+
+/* Partner Profile */
+.partner-header {
+    background-color: var(--light-color);
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+    border-radius: var(--border-radius);
+}
+
+.partner-logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.partner-stats {
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    background-color: #fff;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+/* Alerts and Notifications */
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: var(--danger-color);
+    color: white;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Print Styles */
+@media print {
+    .navbar, .btn, .no-print {
+        display: none !important;
+    }
+    
+    body {
+        background-color: #fff;
+    }
+    
+    .card {
+        box-shadow: none;
+        border: 1px solid #dee2e6;
+    }
+    
+    .container {
+        max-width: 100%;
+        width: 100%;
+    }
+}
